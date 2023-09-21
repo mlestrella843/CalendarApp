@@ -6,18 +6,16 @@ import { Navigate } from "react-router-dom";
 
 const AppRouter = () => {
 
-  const authStatus = 'no autenticated';
+  const authStatus = 'autenticated';
 
   return (
-
-       
 
     <Routes>
 
     { 
-      ( authStatus === 'no autenticated' )
+      ( authStatus === 'no-autenticated' )
       ?<Route path="/auth/*" element={<LoginPage />} />
-      :<Route path="/" element={<CalendarPage />} />
+      :<Route path="/*" element={<CalendarPage />} />
     }
 
       <Route path="/*" element={<Navigate to="/auth/login" />} />
