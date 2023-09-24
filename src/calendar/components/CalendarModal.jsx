@@ -66,30 +66,33 @@ const CalendarModal = () => {
 <form className="container">
 
     <div className="form-group mb-2">
-        <label>Start date and time</label>
+        <strong>Start date and time</strong>
         <br />
         <DatePicker 
-        selected={ formValues.start } 
-        onChange={ (event) => onDateChange( event, 'start' ) } 
-        className="form-control" 
-        dateFormat="Pp" />
+            className="form-control"
+            selected={ formValues.start } 
+            onChange={ (event) => onDateChange( event, 'start' ) } 
+            dateFormat="Pp" 
+            showTimeSelect
+        />      
     </div>
 
     <div className="form-group mb-2">
-        <label>End date and time</label>
+        <strong>End date and time</strong>
         <br />
         <DatePicker 
+            className="form-control"
             minDate={ formValues.start } 
             selected={ formValues.end } 
             onChange={ (event) => onDateChange( event, 'end' ) }
-            className="form-control"
             dateFormat="Pp"
+            showTimeSelect
         />
     </div>
 
     <hr />
     <div className="form-group mb-2">
-        <label>Title and notes</label>
+        <strong>Title and notes</strong>
         <input 
             type="text" 
             className="form-control"
@@ -99,10 +102,10 @@ const CalendarModal = () => {
             value={ formValues.title } 
             onChange={ onInputChange }
         />
-        <small id="emailHelp" className="form-text text-muted">A short description</small>
     </div>
 
     <div className="form-group mb-2">
+    <small id="emailHelp" className="form-text text-muted">A short description</small>
         <textarea 
             type="text" 
             className="form-control"
