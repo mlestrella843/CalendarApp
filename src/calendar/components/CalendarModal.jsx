@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { addHours } from 'date-fns';
+import { addHours, differenceInSeconds } from 'date-fns';
 import Modal from 'react-modal';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 
 const customStyles = {
     content: {
@@ -41,15 +40,27 @@ const CalendarModal = () => {
             ...formValues,
             [changing]:event
         })
-
-
     }
-
-
 
     const onCloseModal = () => {
         console.log('Cerrando Modal');
         setIsOpen(false);
+    }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+
+        const difference = differenceInSeconds( formValues.end, formValues.start);
+        //console.log({ difference });
+
+        if( isNaN(difference) || difference <= 0 ) {
+            console.log("The dates are wrong, please enter correct dates");
+            return;
+        }
+
+        if( formValues.title.length <= 0 ) return;
+        console.log( formValues );
+
     }
 
   return (
@@ -63,8 +74,7 @@ const CalendarModal = () => {
     >
         <h1> New Event </h1>
 <hr />
-<form className="container">
-
+<form className="container" onSubmit={ onSubmit }>
     <div className="form-group mb-2">
         <strong>Start date and time</strong>
         <br />
@@ -76,7 +86,6 @@ const CalendarModal = () => {
             showTimeSelect
         />      
     </div>
-
     <div className="form-group mb-2">
         <strong>End date and time</strong>
         <br />
@@ -89,7 +98,6 @@ const CalendarModal = () => {
             showTimeSelect
         />
     </div>
-
     <hr />
     <div className="form-group mb-2">
         <strong>Title and notes</strong>
@@ -103,7 +111,6 @@ const CalendarModal = () => {
             onChange={ onInputChange }
         />
     </div>
-
     <div className="form-group mb-2">
     <small id="emailHelp" className="form-text text-muted">A short description</small>
         <textarea 
@@ -117,7 +124,6 @@ const CalendarModal = () => {
         ></textarea>
         <small id="emailHelp" className="form-text text-muted">Additional information</small>
     </div>
-
     <button
         type="submit"
         className="btn btn-outline-primary btn-block"
@@ -125,9 +131,7 @@ const CalendarModal = () => {
         <i className="far fa-save"></i>
         <span> Save</span>
     </button>
-
 </form>
-
     </Modal>
   )
 }
