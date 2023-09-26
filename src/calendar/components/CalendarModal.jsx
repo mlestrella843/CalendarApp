@@ -37,7 +37,7 @@ const CalendarModal = () => {
         if( !formSubmitted ) return '';
 
         return ( formValues.title.length > 0 )
-            ? 'is-valid'
+            ? ''
             : 'is-invalid';
 
     }, [ formValues.title, formSubmitted ])
