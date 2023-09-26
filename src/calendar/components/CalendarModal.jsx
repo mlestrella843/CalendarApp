@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { addHours, differenceInSeconds } from 'date-fns';
 import Modal from 'react-modal';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const customStyles = {
     content: {
@@ -21,12 +24,23 @@ const CalendarModal = () => {
 
     const [isOpen, setIsOpen] = useState(true);
 
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
     const [formValues, setFormValues] = useState({
         title: 'Maria Luisa',
         notes: 'Probando el modal',
         start: new Date(),
         end: addHours( new Date(), 2 ),
     });
+
+   const titleClass = useMemo(() => {
+        if( !formSubmitted ) return '';
+
+        return ( formValues.title.length > 0 )
+            ? 'is-valid'
+            : 'is-invalid';
+
+    }, [ formValues.title, formSubmitted ])
 
     const onInputChange = ( {target} ) => {
         setFormValues({
@@ -49,25 +63,23 @@ const CalendarModal = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
+        setFormSubmitted(true);
 
         const difference = differenceInSeconds( formValues.end, formValues.start);
         //console.log({ difference });
-
         if( isNaN(difference) || difference <= 0 ) {
-            console.log("The dates are wrong, please enter correct dates");
+            Swal.fire('Dates wrong', 'Please enter correct dates', 'error' );
             return;
         }
-
         if( formValues.title.length <= 0 ) return;
         console.log( formValues );
-
     }
 
   return (
     <Modal
         isOpen={ isOpen }
-        onRequestClose={onCloseModal}
-        style={customStyles}
+        onRequestClose={ onCloseModal }
+        style={ customStyles }
         className="modal"
         overlayClassName="modal-fondo"
         closeTimeoutMS={ 200 }
@@ -103,7 +115,7 @@ const CalendarModal = () => {
         <strong>Title and notes</strong>
         <input 
             type="text" 
-            className="form-control"
+            className={`form-control ${ titleClass }`} 
             placeholder="Event title"
             name="title"
             autoComplete="off"
