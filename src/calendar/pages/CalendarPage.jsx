@@ -6,8 +6,8 @@ import { addHours } from "date-fns";
 import localizer from '../../helpers/calendarLocalizer';
 import CalendarEventBox from '../components/CalendarEventBox';
 import CalendarModal from '../components/CalendarModal';
-import { useUiStore } from '../../hooks/useUiStore';
-
+import { useUiStore} from '../../hooks/useUiStore';
+import { useCalendarStore } from '../../hooks/useCalendarStore';
 
 const events = [{
   title: 'Boss Birthday',
@@ -24,6 +24,7 @@ const events = [{
 const CalendarPage = () => {
 
     const { openDateModal } = useUiStore();
+    const { events } = useCalendarStore();
 
     const [lastView, setLastView] = useState( localStorage.getItem('lastView') || 'week' );
 
