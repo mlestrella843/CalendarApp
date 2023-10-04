@@ -7,9 +7,13 @@ import { store } from './store/store';
 const CalendarApp = () => {
   return (
     <Provider store={ store }> 
+
       <BrowserRouter>
+
           <AppRouter />
+
       </BrowserRouter>
+
     </Provider> 
   )
 }
