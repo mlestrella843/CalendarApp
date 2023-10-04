@@ -9,21 +9,22 @@ import CalendarModal from '../components/CalendarModal';
 import { useUiStore} from '../../hooks/useUiStore';
 import { useCalendarStore } from '../../hooks/useCalendarStore';
 
-const events = [{
-  title: 'Boss Birthday',
-  notes: 'Pick up the cake',
-  start: new Date(),
-  end: addHours( new Date(), 2 ),
-  bgColor: '#fafafa',
-  user: {
-    _id: '123',
-    name:'Maria Luisa'
-  }
- }]
+// const events = [{
+//   title: 'Boss Birthday',
+//   notes: 'Pick up the cake',
+//   start: new Date(),
+//   end: addHours( new Date(), 2 ),
+//   bgColor: '#fafafa',
+//   user: {
+//     _id: '123',
+//     name:'Maria Luisa'
+//   }
+//  }]
 
 const CalendarPage = () => {
 
     const { openDateModal } = useUiStore();
+    
     const { events } = useCalendarStore();
 
     const [lastView, setLastView] = useState( localStorage.getItem('lastView') || 'week' );
@@ -61,8 +62,8 @@ const CalendarPage = () => {
       <Navbar />
 
       <Calendar
-        localizer={localizer}
-        events={events}
+        localizer={ localizer }
+        events={ events }
         defaultView={ lastView }
         startAccessor="start"
         endAccessor="end"
@@ -71,9 +72,9 @@ const CalendarPage = () => {
         components={ {
           event: CalendarEventBox
         }}
-        onDoubleClickEvent={onDoubleClick}
-        onSelectEvent={onSelect}
-        onView={onViewChanged}
+        onDoubleClickEvent={ onDoubleClick }
+        onSelectEvent={ onSelect }
+        onView={ onViewChanged }
       />
 
       <CalendarModal />

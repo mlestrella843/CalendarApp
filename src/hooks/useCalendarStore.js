@@ -7,8 +7,10 @@ export const useCalendarStore = () => {
   const { events, activeEvent } = useSelector( state => state.calendar);
   
     return (
-        events,
-        activeEvent
+        //Properties
+        activeEvent,
+        events
+        //Methods
   )
 
 }
