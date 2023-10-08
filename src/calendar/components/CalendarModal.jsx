@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { addHours, differenceInSeconds } from 'date-fns';
 import Modal from 'react-modal';
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -8,7 +9,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 import { useUiStore } from '../../hooks/useUiStore';
-import { onCloseDateModal } from '../../store/ui/uiSlice';
+
 
 const customStyles = {
     content: {
@@ -40,11 +41,9 @@ const CalendarModal = () => {
 
    const titleClass = useMemo(() => {
         if( !formSubmitted ) return '';
-
         return ( formValues.title.length > 0 )
             ? ''
             : 'is-invalid';
-
     }, [ formValues.title, formSubmitted ])
 
     const onInputChange = ( {target} ) => {
@@ -64,9 +63,6 @@ const CalendarModal = () => {
     const onCloseModal = () => {
         console.log('Cerrando Modal');
         closeDateModal();
-    
-        
-        // setIsOpen(false);
     }
 
     const onSubmit = (event) => {
